@@ -1,0 +1,47 @@
+name: Wurfelt
+main: me.misoryan.wurfelt.Wurfelt
+version: 1.1-1905010
+author: Misoryan
+description: Best Basic Plugin for 1.8+ Server!
+
+softdepend: [ActionBarAPI]
+
+permissions:
+  Wurfelt.admin:
+    default: op
+    children:
+      Wurfelt.broadcast: true
+      Wurfelt.SS: true
+      Wurfelt.Vanish: true
+  Wurfelt.broadcast:
+    description: Permission to use Broadcast Command.
+    default: op
+  Wurfelt.SS:
+    description: Permission to use Freeze (Screen Share) Command.
+    default: op
+  Wurfelt.Vanish:
+    description: Permission to use Vanish Command.
+    default: op
+
+commands:
+  wurfelt:
+    description: Main Command.
+  vanish:
+    aliases: [v]
+    description: Vanish Command.
+  tpa:
+    description: Teleport Request Command.
+  tpaccept:
+    aliases: [tpyes]
+    description: Accept a teleport request.
+  tpdeny:
+    aliases: [tpno]
+    description: Deny a teleport request.
+  bc:
+    aliases: [broadcast]
+    description: Broadcast a message.
+  freeze:
+    description: Freeze a player to use SS.
+  report:
+    aliases: [wdr]
+  reports:

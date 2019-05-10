@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Wurfelt">
+    <output-path>$PROJECT_DIR$/out/artifacts/Wurfelt</output-path>
+    <root id="archive" name="Wurfelt.jar">
+      <element id="module-output" name="Wurfelt" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
