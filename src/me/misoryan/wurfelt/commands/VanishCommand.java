@@ -25,22 +25,23 @@ public class VanishCommand implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("v") || command.getName().equalsIgnoreCase("vanish")) {
             Player sender = Bukkit.getPlayer(commandSender.getName());
             if (!commandSender.hasPermission("Wurfelt.Vanish") && !commandSender.hasPermission("Wurfelt.Admin")) {
-                commandSender.sendMessage(Lib.getCurrentText(Wurfelt.ins.getConfig().getString("Command.permission-denied")));
+                commandSender.sendMessage(Lib.getCurrentText(Wurfelt.ins.getConfig().getString("Commands.permission-denied")));
                 return true;
             }
-            if (VanishData.get(sender) == null) {
+            VanishData.putIfAbsent(sender,false);
+            if (!VanishData.get(sender)) {
                 VanishData.put(sender,true);
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    sender.hidePlayer(p);
+                    p.hidePlayer(Wurfelt.ins,sender);
                 }
                 ActionBarAPI.sendActionBar(Objects.requireNonNull(Bukkit.getPlayer(commandSender.getName())),Lib.getCurrentText("&f你目前处于&c隐身&f状态中"));
                 commandSender.sendMessage(Lib.getCurrentText("&a你现在进入了隐身模式,其他玩家将无法看到你."));
             }
             else {
-                VanishData.put(sender, null);
+                VanishData.put(sender, false);
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    p.showPlayer(sender);
-                    sender.showPlayer(p);
+                    p.showPlayer(Wurfelt.ins,sender);
+                    sender.showPlayer(Wurfelt.ins,p);
                 }
                 ActionBarAPI.sendActionBar(Objects.requireNonNull(Bukkit.getPlayer(commandSender.getName())),Lib.getCurrentText("&f "));
                 commandSender.sendMessage(Lib.getCurrentText("&c你现在关闭了隐身模式,其他玩家将可以看到你."));

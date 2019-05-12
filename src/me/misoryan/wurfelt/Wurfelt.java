@@ -50,15 +50,18 @@ public class Wurfelt extends JavaPlugin {
                 @Override
                 public void run() {
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        if (VanishCommand.VanishData.get(p) != null) {
+                        VanishCommand.VanishData.putIfAbsent(p,false);
+                        if (VanishCommand.VanishData.get(p)) {
                             for (Player player : Bukkit.getOnlinePlayers()) {
-                                p.hidePlayer(player);
+
                             }
                             ActionBarAPI.sendActionBar(p, Lib.getCurrentText("&f你目前处于&c隐身&f状态中"));
-                        } else {
+                        }
+                        else {
                             for (Player player : Bukkit.getOnlinePlayers()) {
-                                p.showPlayer(player);
-                                player.showPlayer(p);
+                                ActionBarAPI.sendActionBar(p, Lib.getCurrentText("&fTEST"));
+                                p.showPlayer(Wurfelt.ins,player);
+                                player.showPlayer(Wurfelt.ins,p);
                             }
                         }
                     }
@@ -68,11 +71,13 @@ public class Wurfelt extends JavaPlugin {
     }
 
     public void register() {
+        /*
         if (getConfig().getBoolean("Vanish.enable") && Bukkit.getPluginManager().getPlugin("ActionBarAPI").isEnabled()) {
             Bukkit.getPluginCommand("v").setExecutor(new VanishCommand());
             Bukkit.getPluginManager().registerEvents(new VanishListener(), this);
             getLogger().info(Lib.getCurrentText("Now Loading Module: &3Vanish"));
         }
+        */
 
         if (getConfig().getBoolean("Teleport.enable")) {
             Bukkit.getPluginCommand("tpa").setExecutor(new TpaCommand());
@@ -101,7 +106,6 @@ public class Wurfelt extends JavaPlugin {
         ins = this;
         reloadConfig();
         register();
-        vanishRunnable();
         Bukkit.getPluginCommand("wurfelt").setExecutor(new WurfeltCommand());
         Bukkit.getPluginCommand("report").setExecutor(new ReportCommand());
         Bukkit.getPluginCommand("reports").setExecutor(new ReportsCommand());
