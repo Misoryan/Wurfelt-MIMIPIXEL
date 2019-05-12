@@ -23,10 +23,10 @@ import java.util.ArrayList;
 public class FreezeListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDamage(final EntityDamageByEntityEvent e) {
-        if (FreezeCommand.freezeing.get(e.getEntity().getName()) != null) {
+        if (FreezeCommand.freezeing.get(e.getEntity()) != null) {
             e.setCancelled(true);
         }
-        if (FreezeCommand.freezeing.get(e.getDamager().getName()) != null) {
+        if (FreezeCommand.freezeing.get(e.getDamager()) != null) {
             e.setCancelled(true);
         }
     }
@@ -51,7 +51,7 @@ public class FreezeListener implements Listener {
                         return;
                     }
                     final Inventory inventory = Bukkit.createInventory(null, 9, Lib.getCurrentText(Wurfelt.ins.getConfig().getString("freeze.title")));
-                    final ItemStack itemStack = new ItemStack(Material.YELLOW_DYE);
+                    final ItemStack itemStack = new ItemStack(Material.YELLOW_FLOWER);
                     final ItemMeta itemMeta = itemStack.getItemMeta();
                     int i = 0;
                     for (final String l : Wurfelt.ins.getConfig().getStringList("freeze.lore")) {
@@ -84,11 +84,15 @@ public class FreezeListener implements Listener {
                 }
                 else {
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        p.sendMessage(Lib.getCurrentText(x.replace("[PLAYER]",e.getPlayer().getName())));
+                        if (p.hasPermission("Wurfelt.SS")) {
+                            p.sendMessage(Lib.getCurrentText(x.replace("[PLAYER]",e.getPlayer().getName())));
+                        }
                     }
                 }
             }
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), Wurfelt.ins.getConfig().getString("freeze.disconnect.command").replace("[PLAYER]",e.getPlayer().getName()));
+            for (String p : Wurfelt.ins.getConfig().getStringList("freeze.disconnect.command")) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(),p.replace("[PLAYER]",e.getPlayer().getName()));
+            }
             FreezeCommand.freezeing.remove(e.getPlayer().getName());
         }
     }

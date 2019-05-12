@@ -1,4 +1,4 @@
-#Wurfelt --- ErisBase Remake
+#Wurfelt (MiMiPixel Version)
 #Best Basic Plugin for 1.8+ Server
 #Author: Misoryan & EmptyIrony
 #变量区分大小写 /wurfelt reload重载配置文件 <3
@@ -7,17 +7,6 @@ Commands:
   permission-denied: '&cPermission Denied.'
   current-usage: '&cCurrent Usage: &4'
   player-offline: '&cTargeted player is offline.'
-
-GMCommand:
-  enable: false
-Teleport:
-  enable: true
-Broadcast:
-  enable: true
-  prefix: '&8[&3Alert&8] &7'
-Vanish:
-  #Permission: Wurfelt.Vanish
-  enable: false
 freeze:
   enable: true
   title: '&cCLIENT CHECK REQUEST'
@@ -45,12 +34,5 @@ freeze:
       - ' &7Wurfelt &f移除了一名在线玩家'
       - ' &f因为其 &c拒绝客户端检查 &f.'
       - ' '
-    command: 'ban [PLAYER] 30d 拒绝客户端检查'
-report:
-  status:
-    waiting: '&cWAITING'
-    dealing: '&6DEALING'
-    closed: '&4CLOSED'
-    done: '&aDONE'
-  already-reported: '&7This player is already reported by others. Thanks for your report.'
-  report-success: '&7You successfully reported &f%player% &7,thanks for your report.'
+    command:
+      - 'ban [PLAYER] 30d 拒绝客户端检查'

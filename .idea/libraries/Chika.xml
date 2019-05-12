@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Chika">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../Chika.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../Chika.jar!/" />
+    </SOURCES>
+  </library>
+</component>
