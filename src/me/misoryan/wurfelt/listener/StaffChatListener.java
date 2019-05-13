@@ -1,5 +1,6 @@
 package me.misoryan.wurfelt.listener;
 
+import me.misoryan.wurfelt.Wurfelt;
 import me.misoryan.wurfelt.WurfeltBungee;
 import me.misoryan.wurfelt.commands.ChatCommand;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -14,14 +15,14 @@ public class StaffChatListener implements Listener {
 
     @EventHandler
     public void onChat(ChatEvent e) {
-        final ProxiedPlayer p = (ProxiedPlayer)e.getSender();
-        if (ChatCommand.ChatMode.get(p.getName()) == null) {
+        ChatCommand.ChatMode.putIfAbsent(e.getSender().toString(),false);
+        if (!ChatCommand.ChatMode.get(e.getSender().toString())) {
             return;
         }
         if (e.getMessage().startsWith("/")) {
             return;
         }
         e.setCancelled(true);
-        ChatCommand.sendStaffMessage(p.getName(),e.getMessage());
+        ChatCommand.sendStaffMessage(e.getSender().toString(),e.getMessage());
     }
 }

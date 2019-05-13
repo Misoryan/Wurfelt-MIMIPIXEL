@@ -3,6 +3,7 @@ package me.misoryan.wurfelt.commands;
 import me.misoryan.wurfelt.libs.Lib;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.protocol.packet.Chat;
 
 public class StaffChatCommand extends Command {
 
@@ -20,5 +21,6 @@ public class StaffChatCommand extends Command {
             commandSender.sendMessage(Lib.getCurrentText("&cCurrent Usage: &4/sc <Message>"));
             return;
         }
+        ChatCommand.sendStaffMessage(commandSender.getName(),Lib.getCurrentArgsFormat(strings,0));
     }
 }
