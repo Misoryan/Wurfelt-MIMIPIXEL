@@ -2,6 +2,7 @@ package me.misoryan.wurfelt.commands;
 
 import me.misoryan.wurfelt.WurfeltBungee;
 import me.misoryan.wurfelt.libs.Lib;
+import me.misoryan.wurfelt.listener.StaffChatListener;
 import net.md_5.bungee.*;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -13,10 +14,12 @@ import java.util.Map;
 public class ChatCommand extends Command {
 
     public static Map<String, Boolean> ChatMode;
+    public static Map<String, Long> EventTimings;
 
     public ChatCommand(String name) {
         super(name);
         ChatMode = new HashMap<String, Boolean>();
+        EventTimings = new HashMap<String, Long>();
     }
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
@@ -44,9 +47,11 @@ public class ChatCommand extends Command {
 
     public static void sendStaffMessage(String player,String message) {
         String rank = getStaffRank(player);
-        for (ProxiedPlayer p : WurfeltBungee.ins.getProxy().getPlayers()) {
-            if (!getStaffRank(p.getName()).equalsIgnoreCase("§7")) {
-                p.sendMessage("§3管理 > " + rank + player + ": §f" + message);
+        if (!StaffChatListener.checkEventHandledDouble(player)) {
+            for (ProxiedPlayer p : WurfeltBungee.ins.getProxy().getPlayers()) {
+                if (!getStaffRank(p.getName()).equalsIgnoreCase("§7")) {
+                    p.sendMessage("§3管理 > " + rank + player + ": §f" + message);
+                }
             }
         }
     }
@@ -57,6 +62,9 @@ public class ChatCommand extends Command {
         }
         if (WurfeltBungee.ins.getProxy().getPlayer(player).hasPermission("Wurfelt.Admin")) {
             return "§c[ADMIN] ";
+        }
+        if (WurfeltBungee.ins.getProxy().getPlayer(player).hasPermission("Wurfelt.Censor")) {
+            return "§3[CENSOR] ";
         }
         if (WurfeltBungee.ins.getProxy().getPlayer(player).hasPermission("Wurfelt.Helper")) {
             return "§2[HELPER] ";

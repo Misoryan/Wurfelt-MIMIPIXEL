@@ -14,11 +14,11 @@ public class StaffChatCommand extends Command {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (!commandSender.hasPermission("Wurfelt.Helper")) {
-            commandSender.sendMessage(Lib.getCurrentText("&cPermission Denied."));
+            commandSender.sendMessage("§cPermission Denied.");
             return;
         }
         if (strings.length == 0) {
-            commandSender.sendMessage(Lib.getCurrentText("&cCurrent Usage: &4/sc <Message>"));
+            commandSender.sendMessage("§cCurrent Usage: §4/sc <Message>");
             return;
         }
         ChatCommand.sendStaffMessage(commandSender.getName(),Lib.getCurrentArgsFormat(strings,0));
